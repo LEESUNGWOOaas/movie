@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.movie.util.service.impl.MovieMapper">
+	<select id="selectMovieList" parameterType="movieVO" resultType="movieVO">
+		select movie_no,
+			   movie_rank,
+			   movie_name,
+			   movie_reverse,
+			   score,
+			   open_day,
+			   reg_id,
+			   reg_dt,
+			   chg_id,
+			   chg_dt,
+			   rank_check_time
+			   
+		from movie 
+		
+	
+	</select>
+
+<!-- keyProperty를 설정하면 유니크 키와 중복된 pk키가 있어서 오류가 나기떄문에 없앴다 -->
+	<insert id="insertMovie" parameterType="movieVO" useGeneratedKeys="true" >
+		replace into movie
+		       
+		       set movie_name = #{movieName},
+		       	   movie_reverse = #{movieReverse},
+		       	   movie_rank =#{movieRank},
+		       	   score = #{score},
+		       	   open_day = #{openDay},
+		       	   reg_id = #{regId},
+		       	   chg_id = #{chgId},
+		       	   rank_check_time = #{rankCheckTime}
+
+	</insert>
+	
+	<!--예매율  -->
+	<select id="selectReserveList" parameterType="movieVO" resultType="movieVO">
+		select movie_reverse,
+			   thumb_image
+		from movie
+	</select>
+	
+	<!--평점 -->
+	<select id="selectScoreList" parameterType="movieVO" resultType="movieVO">
+		select score,
+			   thumb_image
+			   
+		from movie
+	</select>
+	
+</mapper>

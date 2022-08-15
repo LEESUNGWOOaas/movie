@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.movie.admin.user.service.impl.UserMapper">
+<select id="selectUserList" parameterType="userVO" resultType="userVO">
+		select user_no,
+			   user_name,
+			   user_id,
+			   pwd,
+			   auth,
+			   salt,
+			   phone,
+			   email,
+			   delete_yn,
+			   insert_date
+			   
+		  from user
+		  
+		 where delete_yn ='N'
+			 <if test="searchKeyword != null and searchKeyword != '' ">
+         and ${searchType} like CONCAT('%', #{searchKeyword}, '%')
+        	 </if>
+         order by user_no desc 
+             <if test="pageVO != null">
+         limit #{pageVO.startNo}, #{pageVO.listSize}
+       		 </if>
+	</select>
+	
+	<select id="selectUserListCount" parameterType="userVO" resultType="int">
+		select count(*)
+		
+		  from user
+		  
+		 where delete_yn ='N'
+			  <if test="searchKeyword != null and searchKeyword != '' ">
+        	  and ${searchType} like CONCAT('%', #{searchKeyword}, '%')
+              </if>
+	</select>
+	
+	<select id="selectUser" parameterType="userVO" resultType="userVO">
+		select user_no,
+			   user_name,
+			   user_id,
+			   pwd,
+			   auth,
+			   phone,
+			   salt,
+			   email,
+			   delete_yn,
+			   insert_date
+			   
+		  from user
+		  
+		 where user_no =#{userNo}
+	</select>
+	
+	<insert id="insert" parameterType="userVO" useGeneratedKeys="true" keyProperty="userNo">
+		insert into user
+		  
+		   set user_name = #{userName},
+		       user_id =#{userId},
+		       pwd =#{pwd},
+		       salt =#{salt},
+		       auth = #{auth},
+		       phone =#{phone},
+		       email=#{email},
+		       insert_date = now()
+	</insert>
+	
+	<update id="update" parameterType="userVO">
+		update user
+		
+		   set user_name = #{userName},
+		       user_id =#{userId},
+		       pwd =#{pwd},
+		       auth = #{auth},
+		       phone =#{phone},
+		       email=#{email},
+		       insert_date = now()
+		       
+		 where user_no =#{userNo}
+	</update>
+	
+	<update id="delete" parameterType="userVO">
+		update user
+		
+		   set delete_yn = "Y"
+		   
+	  	 where user_no = #{userNo}
+	</update>
+	
+	<select id="selectUserById" parameterType="userVO" resultType="userVO">
+		select user_no,
+			   user_name,
+			   user_id,
+			   pwd,
+			   auth,
+			   salt,
+			   phone,
+			   email,
+			   delete_yn,
+			   insert_date
+		
+		  from user
+		  
+		 where 1=1
+		 and   user_id =#{userId}
+	</select>
+	
+	<select id="selectUserByUserNo" parameterType="int" resultType="userVO">
+		select user_no,
+			   user_name,
+			   user_id,
+			   pwd,
+			   auth,
+			   salt,
+			   phone,
+			   email,
+			   delete_yn,
+			   insert_date
+		
+		  from user
+		  
+		 where 1=1
+		 and   user_No =#{userNo}
+	</select>
+</mapper>

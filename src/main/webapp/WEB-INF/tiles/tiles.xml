@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	
+	
+	<!-- layout 관리자 -->
+	<definition name="adminLayout" template="/WEB-INF/jsp/layout/admin/layout.jsp">
+		<!-- <put-attribute name="header" value="/WEB-INF/jsp/layout/admin/header.jsp" /> -->
+		<put-attribute name="body" value="" />
+		<!-- <put-attribute name="footer" value="/WEB-INF/jsp/layout/admin/footer.jsp" /> -->
+	</definition>
+	
+	<definition name="*.admin" extends="adminLayout">
+		<put-attribute name="body" value="/WEB-INF/jsp/admin/{1}.jsp" />
+    </definition>
+    
+	<definition name="*/*.admin" extends="adminLayout">
+		<put-attribute name="body" value="/WEB-INF/jsp/admin/{1}/{2}.jsp" />
+    </definition>
+   
+    <definition name="*/*/*.admin" extends="adminLayout">
+		<put-attribute name="body" value="/WEB-INF/jsp/admin/{1}/{2}/{3}.jsp" />
+    </definition>
+    
+    
+     <!-- layout front -->
+	<definition name="frontLayout" template="/WEB-INF/jsp/layout/front/layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/jsp/layout/front/header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/jsp/layout/front/footer.jsp" />
+	</definition>
+	
+	<definition name="*.front" extends="frontLayout">
+		<put-attribute name="body" value="/WEB-INF/jsp/front/{1}.jsp" />
+    </definition>
+    
+	<definition name="*/*.front" extends="frontLayout">
+		<put-attribute name="body" value="/WEB-INF/jsp/front/{1}/{2}.jsp" />
+    </definition>
+   
+    <definition name="*/*/*.front" extends="frontLayout">
+		<put-attribute name="body" value="/WEB-INF/jsp/front/{1}/{2}/{3}.jsp" />
+    </definition>
+    
+	
+</tiles-definitions>

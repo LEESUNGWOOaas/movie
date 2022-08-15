@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.movie.admin.board.service.impl.BoardMapper">
+	<select id="selectBoardList" parameterType="boardVO" resultType="boardVO">
+		select board_no,
+			   title,
+			   content,
+			   delete_yn,
+			   sci,
+			   insert_date
+			   
+		  from board
+		  
+		 where delete_yn ='N'
+			 <if test="searchKeyword != null and searchKeyword != '' ">
+         and ${searchType} like CONCAT('%', #{searchKeyword}, '%')
+        	 </if>
+         order by board_no desc 
+             <if test="pageVO != null">
+         limit #{pageVO.startNo}, #{pageVO.listSize}
+       		 </if>
+	</select>
+	
+	<select id="selectBoardListCount" parameterType="boardVO" resultType="int">
+		select count(*)
+		
+		  from board
+		  
+		 where delete_yn ='N'
+			  <if test="searchKeyword != null and searchKeyword != '' ">
+        	  and ${searchType} like CONCAT('%', #{searchKeyword}, '%')
+              </if>
+	</select>
+	
+	<select id="selectBoard" parameterType="boardVO" resultType="boardVO">
+		select board_no,
+			   title,
+			   content,
+			   sci,
+			   delete_yn,
+			   insert_date
+			   
+		  from board
+		  
+		 where board_no =#{boardNo}
+	</select>
+	
+	<insert id="insert" parameterType="boardVO" useGeneratedKeys="true" keyProperty="boardNo">
+		insert into board
+		  
+		   set title = #{title},
+		   	   sci = #{sci},
+		       content = #{content},
+		       insert_date = now()
+	</insert>
+	
+	<update id="update" parameterType="boardVO">
+		update  board
+		
+		   set title = #{title},
+		       content = #{content},
+		        sci = #{sci},
+		       insert_date = now()
+		       
+		 where board_no =#{boardNo}
+	</update>
+	
+	<update id="delete" parameterType="boardVO">
+		update board
+		
+		   set delete_yn = 'Y'
+		   
+	  	 where board_no = #{boardNo}
+	</update>
+</mapper>
