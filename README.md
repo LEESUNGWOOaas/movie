@@ -9,7 +9,7 @@
 🔳Selenium(Crawling) * 원래 개발엔 Jsoup을 사용하려 했으나 비동기 방식엔 Selenium을 더 많이 활용한다하여 개발 방향성을 바꾸게 됨<br>
 <br><br><br>
 📆개발 기간<br>
-🕕2022-08/02 ~< (08/07부터 잠시 컴퓨터 문제로 작업중단후 13일 재시작)br><br> 
+🕕2022-08/02 ~ (08/07부터 잠시 컴퓨터 문제 및 git repository문제 로 작업중단후 13일 재시작) <br><br> 
 📧E-mail<br>
 🆔keroro1945@naver.com<br><br>
 📞phone<br>
